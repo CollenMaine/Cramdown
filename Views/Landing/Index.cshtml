@@ -1,0 +1,61 @@
+﻿@{
+    ViewBag.Title = "Welcome to Cramdown";
+    ViewBag.Description = "An introduction to Cramdown";
+    ViewBag.Keywords = "About Cramdown, Sell homemade food,buy homemade food";
+}
+<script>
+    document.title = "Welcome to Cramdown";
+</script>
+
+<style>
+    #SellOn {
+        background-color: white;
+        width: 100%;
+        font-size: 20px;
+        height: fit-content;
+        margin: auto;
+        margin: 5rem;
+        padding: 4rem;
+        border-radius: 1em;
+        box-shadow: 0 0 5px 3px black;
+        max-width: 70%;
+    }
+
+    #links:hover {
+        text-decoration: none;
+        color: lightblue;
+    }
+
+    #continue{
+        border-radius: 6px;
+        background-color: black;
+        font-size: 18px;
+        color:white;
+        width: 15%;
+    }
+</style>
+
+<div>
+    <div id="SellOn">
+        <h3 class="text-center">Sell on Cramdown</h3>
+        <hr />
+        You can sell your homemade delicasies on Cramdown for no charge at all. It can be anything that you cook at home,
+        from Roasted Chicken to something as simple as Scrambled Eggs.
+    </div>
+
+    <div id="SellOn">
+        <h3 class="text-center">Buy from others on Cramdown</h3>
+        <hr />
+        Simply install the Cramdown app from <a class="text-info" id="links" href="https://play.google.com/store/apps/details?id=com.dotactual.cramdown">
+            Google Playstore
+        </a> or <a class="text-info" id="links" href="https://urldra.cloud.huawei.com/mhZa1fNCpi">
+            Huawei AppStore
+        </a>, create an account
+        and start order food from other foodies near you.
+    </div>
+    <div  class="d-flex justify-content-center">
+        <a id="continue" class="text-center btn btn-block" asp-action="Index" asp-controller="Home">Continue</a>
+    </div>
+</div>
+
+

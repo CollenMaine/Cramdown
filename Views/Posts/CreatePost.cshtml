@@ -1,0 +1,53 @@
+﻿@model MealModel
+
+<script>
+    document.title = "Create post";
+</script>
+
+<style>
+    label {
+        font-size: 1.5rem;
+    }
+
+    #profile-image {
+        box-shadow: 0 0 2px 1px black;
+    }
+</style>
+
+<div class="container d-flex justify-content-center">
+    <form class="w-75 mx-auto" asp-action="UploadPost" asp-controller="Posts" method="post" enctype="multipart/form-data">
+        <!-- Image Picker -->
+        <div class="d-flex form-group justify-content-center mt-3">
+            <label class="mx-auto" for="profile-picture">
+                <input class="file-input" type="file" id="profile-picture" name="profilePicture" accept="image/*" required onchange="previewImage(event)">
+                <img id="profile-image" style="width:30rem;" class="d-block mx-auto rounded-lg" id="profile-image" src="~/images/add.png" alt="add image">
+            </label>
+        </div>
+
+        <!-- Description Input -->
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <input asp-for="pTitle" class="form-control" type="text" id="description" placeholder="e.g., Steak and mashed potatoes">
+        </div>
+
+        <!-- Price Input -->
+        <div class="form-group">
+            <label for="price">Price:</label>
+            <input class="form-control" asp-for="pPrice" type="text" id="price">
+        </div>
+
+        <!-- Delivery Options -->
+        <div class="form-group">
+            <label class="d-inline m-2">Delivery:</label>
+            <div class="form-check d-inline m-2">
+                <input class="form-check-input d-inline" type="radio" id="deliveryAvailable" asp-for="pDelivery" value="Yes, it's available">
+                <label class="form-check-label" for="deliveryAvailable">Available</label>
+            </div>
+            <div class="form-check d-inline m-2">
+                <input class="form-check-input d-inline" type="radio" id="deliveryNotAvailable" asp-for="pDelivery" value="Yes, it's available">
+                <label class="form-check-label" for="deliveryNotAvailable">Not available</label>
+            </div>
+        </div>
+        <button class="btn btn-dark btn-block text-lg-center" type="submit">Create Post</button>
+    </form>
+</div>

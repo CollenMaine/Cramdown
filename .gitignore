@@ -1,0 +1,6 @@
+bin/
+obj/
+Properties/
+lib/jquery/
+lib/jquery-validation/
+lib/jquery-validation/unobstrusive/

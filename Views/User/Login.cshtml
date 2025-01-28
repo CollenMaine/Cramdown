@@ -1,0 +1,68 @@
+﻿@model UserModel
+@{
+    ViewBag.Title = "Login";
+    ViewBag.Description = "Cramdown login page";
+    ViewBag.Keywords = "Create account, Login to account";
+}
+<script>
+    document.title = "Login";
+</script>
+
+@if (Model == null)
+{
+    <div class="container mt-5" style="color:black;">
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <h2 class="text-center mb-4">Log in</h2>
+                <form asp-action="Login" asp-controller="User">
+                    <div class="form-group">
+                        <label for="username">Email</label>
+                        <input type="text" class="form-control" id="username" placeholder="someone@gmail.com" asp-for="email" style="border-color:black;" />
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="password" asp-for="password" style="border-color:black;" />
+                    </div>
+                    <button type="submit" class="btn btn-dark btn-block">Login</button>
+                    <p style="text-align:center;" class="pt-1"><a style="color:black;" asp-action="ForgotPassword" asp-controller="User">Forgot password</a></p>
+                    <p style="text-align:center;" class="pt-1"><a style="color:black;" asp-action="SignUp" asp-controller="User">Create account</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="container mt-5" style="color:black;">
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <h2 class="text-center mb-4">Log in</h2>
+                <form asp-action="Login" asp-controller="User">
+                    <div class="form-group">
+                        <label for="username">Email</label>
+                        <input type="text" class="form-control" id="username" placeholder="someone@gmail.com" asp-for="email" style="border-color:black;" />
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="password" asp-for="password" style="border-color:black;" />
+                    </div>
+                    <button type="submit" class="btn btn-dark btn-block">Login</button>
+                    <p style="text-align:center;" class="pt-1"><a style="color:black;" asp-action="ForgotPassword" asp-controller="User">Forgot password</a></p>
+                    <p style="text-align:center;" class="pt-1"><a style="color:black;" asp-action="SignUp" asp-controller="User">Create account</a></p>
+                    @if (!Model.isVerified)
+                    {
+                        <p class="text-danger pt-2">
+                            Please verify your email address by clicking on the link sent to your email address.<br/>              
+                        </p>
+                    }
+                    else if (!Model.isReal)
+                    {
+                        <p class="text-danger pt-2">
+                            That account does not exist, please click sign up to create an account.
+                        </p>
+                    }
+                </form>
+            </div>
+        </div>
+    </div>
+}

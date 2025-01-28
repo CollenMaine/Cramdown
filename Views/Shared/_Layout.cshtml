@@ -1,0 +1,109 @@
+﻿@using Microsoft.AspNetCore.Http
+@{
+    string session = ViewContext.HttpContext.Session.GetString("token");
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href='https://fonts.googleapis.com/css?family=Roboto Mono' rel='stylesheet'>
+    <link rel="icon" type="image/jpeg" href="~/images/cramdown_new.jpeg">
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</head>
+<body>
+    <header class="justify-content-center">
+        <nav class="navbar navbar-expand" style="color:black; border-bottom:2px solid black;">
+            <div class="container-fluid">
+                <cache>
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                        <img class="border border-dark rounded ml-2 mr-2" style="width:60px; height:60px;" src="~/images/cramdown_new.jpeg" alt="Logo" />
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </cache>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item pl-3">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        @if (session != null)
+                        {
+                            <li class="nav-item pl-3">
+                                <a class="nav-link" asp-controller="User" asp-action="Account">Account</a>
+                            </li>
+                            <li class="nav-item pl-3">
+                                <a class="nav-link" asp-area="" asp-controller="Posts" asp-action="CreatePost">Post</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item pl-3">
+                                <a class="nav-link" asp-area="" asp-controller="User" asp-action="Login">Login</a>
+                            </li>
+                            <li class="nav-item pl-3">
+                                <a class="nav-link" asp-area="" asp-controller="User" asp-action="SignUp">Sign up</a>
+                            </li>
+                        }
+                        @if (ViewContext.RouteData.Values["controller"].ToString() != "App")
+                        {
+                            <li class="nav-item pl-3 ml-auto">
+                                <a class="nav-link" target="_blank" href="https://play.google.com/store/apps/details?id=com.dotactual.cramdown"><img style="width:8rem;" src="~/images/playstore (2).png" alt="playstore" /></a>
+                            </li>
+                            <li class="nav-item pl-3">
+                                <a class="nav-link" target="_blank" href="https://urldra.cloud.huawei.com/mhZa1fNCpi"><img style="width:8rem;" src="~/images/huawei.png" alt="huawei" /></a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    @if(ViewContext.RouteData.Values["controller"].ToString() == "Landing")
+    {
+        <div style="background-image: url('../images/photo.png');
+        background-size: cover;
+        background-attachment: fixed;
+        font-family: 'Roboto Mono';">
+            <div class="container">
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
+            </div>
+        </div>
+
+    }
+    else
+    {
+        <div style="font-family: 'Roboto Mono';">
+            <div class="container">
+                <main role="main" class="pb-3">
+                    @RenderBody()
+                </main>
+            </div>
+        </div>
+    }
+
+    <cache>
+        <footer class="footer text-muted" style="border-top:1px solid black; max-height:40px;">
+            <div class="container">
+                &copy; @DateTime.Now.Year - CramDown - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+            <div class="container">
+                <a asp-area="" asp-controller="Home" asp-action="Terms">Terms of use</a>
+            </div>
+            <div class="container">
+                Contact us at <a href="mailto:dotactual@gmail.com">dotactual@gmail.com</a>
+            </div>
+        </footer>
+    </cache>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

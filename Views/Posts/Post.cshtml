@@ -1,0 +1,56 @@
+﻿@model MealModel
+@{
+    ViewBag.Title = "A user's post";
+    ViewBag.Description = "A user's post";
+    ViewBag.Keywords = Model.pTitle;
+}
+<script>
+    document.title = @Model.uName + "'s post";
+</script>
+
+
+<div class="d-flex justify-content-center m-2">
+    <div class="innerSpace w-50" style="border-radius:5px; color:black; box-shadow: 0 0 2px 1px black;">
+        <div style="display:inline; height:fit-content;" class="userInfo">
+            <div style="display:inline-block;">
+                <a href="/User/UserInfo/@Model.uid">
+                    <img src="@Model.uDp" class="rounded-circle" style="vertical-align:top;" alt="" asp-append-version="true" />
+                </a>
+            </div>
+            <div style="display:inline-block; vertical-align:middle;">
+                <div>
+                    <a href="/User/UserInfo/@Model.uid">
+                        <span class="m-1" style="font-size:20px;">@Model.uName</span>
+                    </a>
+                </div>
+                <div class="p-0 m-0" style="font-weight:lighter; font-size:14px;">
+                    @Model.pCity
+                </div>
+            </div>
+            @if (Model.pDelivery == "Yes, it's available")
+            {
+                <div class="d-inline-block" style="vertical-align:middle;">
+                    <img src="~/images/delivery_icon.png" alt="" />
+                </div>
+            }
+        </div>
+        <div class="postImg">
+            <img class="img-fluid" src="@Model.pImage" asp-append-version="true" />
+        </div>
+        <span class="m-3 truncate-text" style="font-size:22px;">@Model.pTitle</span>
+        @if (!String.IsNullOrEmpty(Model.Info))
+        {
+            <br />
+            <div class="m-3">
+                <span class="font-weight-light" style="font-size:14px;">@Model.Info</span>
+            </div>
+        }
+        <div>
+            <span class="m-3 font-weight-bold" style="font-size:18px;">R @Model.pPrice</span>
+        </div>
+        <div>
+            <a class="btn interestBtn" asp-controller="App" asp-action="Index">Interested</a>
+        </div>
+        <br />
+    </div>    
+</div>

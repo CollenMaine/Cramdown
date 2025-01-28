@@ -1,0 +1,167 @@
+﻿@model UserModel
+@{
+    ViewBag.Title = "User account";
+    ViewBag.Description = "A user's account";
+    ViewBag.Keywords = "Seller's account, Buyer's account";
+}
+
+<link href='https://fonts.googleapis.com/css?family=Roboto Mono' rel='stylesheet'>
+
+<style>
+    ._body {
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+    }
+
+    ._container {
+        max-width: 400px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .popup-container {
+        display: none;
+        position: fixed;
+        top:200px;
+        right:0;
+        max-width:200px;
+        height:fit-content;
+        transform: translate(-50%, -50%);
+        padding: 10px;
+        color: white;
+        background-color: black;
+        border: 1px solid black;
+        box-shadow: 0 0 8px black;
+        border-radius: 0.5rem 0.5rem;
+        z-index:1000;
+    }
+
+    .closeimg {
+        width: 2.5rem;
+        height: 2.5rem;
+        background-color: white;
+        box-shadow: 0 0 4px white;
+        right: 2px;
+        top: 2px;
+        position: fixed;
+        cursor: pointer;
+        border: 1px solid white;
+        border-radius: 2rem 2rem;
+    }
+
+    h2 {
+        text-align: center;
+    }
+
+    .signup-form {
+        margin-right: 20px;
+    }
+
+    .file-input {
+        display: none;
+    }
+
+    #profile-image {
+        margin-bottom: 30px;
+    }
+
+    label[for="profile-picture"] {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    button {
+        background-color: black;
+        color: white;
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .p-2 {
+        text-align: center;
+        margin-top: 10px;
+    }
+</style>
+<div id="popup-account" class="popup-container">
+    <img class="closeimg" onclick="closePopup()" src="~/images/closeIcon.svg" />
+    <p style="margin-top:2rem;">We use your location to determine what city you live in for the best Cramdown experience</p>
+</div>
+<body class="_body">
+    <div class="_container">
+        <h2>Account</h2>
+        @if(String.IsNullOrEmpty(Model.name) || String.IsNullOrEmpty(Model.image))
+        {
+            <div>
+                Please finish setting up your account.
+            </div>
+        }
+        <form class="signup-form" asp-action="EditAccount" autocomplete="off" asp-controller="User" method="post" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+            <input type="file" id="profile-picture" name="profilePicture" accept="image/*" onchange="previewImage(event)" class="file-input">
+            @if (String.IsNullOrEmpty(Model.image))
+            {
+                <label for="profile-picture">
+                    <img id="profile-image" class="rounded-lg" src="~/images/blankuser.png" alt="blank user">
+                </label>
+            }
+            else
+            {
+                <label for="profile-picture">
+                    <img id="profile-image" class="rounded-lg" src="@Model.image" alt="@Model.name">
+                </label>
+            }
+            <h4 class="text-center"><strong>@Model.email</strong></h4>
+            <div class="d-inline">
+                <input type="text" id="name" value="@Model.name" asp-for="name" />
+            </div>
+            <button type="submit">Save changes</button>
+            <a onclick="btnDelete_Click()" id="deleteBtn" class="btn text-danger">Delete Account</a>
+        </form>
+        <div id ="delConfirmation" class="p-2">
+            <p class="text-danger"><strong>Are you sure you want to delete your account?</strong></p>
+            <button class="button mb-1" asp-action="DeleteAccount" asp-controller="User">Yes</button>
+            <button class="button" id="NoDelete">No</button>
+        </div>
+    </div>
+    <script>
+        document.title = "User account";
+        var confirmation = document.getElementById("delConfirmation");
+        var btnDelete = document.getElementById("deleteBtn");
+        function btnDelete_Click() {
+            confirmation.style.display = 'block';
+        }
+
+        var noDelete = document.getElementById("NoDelete");
+        var delConfirmation = document.getElementById("delConfirmation");
+        noDelete.addEventListener("click", function () {
+            delConfirmation.style.display = 'none';
+        });
+
+        function showPopup() {
+            var popup = document.getElementById('popup-account');
+            popup.style.display = 'block';
+        }
+
+        window.onload = function () {
+            showPopup();
+            delConfirmation.style.display = 'none';
+        };
+
+        function closePopup() {
+            var popup = document.getElementById('popup-account');
+            popup.style.display = 'none';
+        }
+    </script>
+</body>

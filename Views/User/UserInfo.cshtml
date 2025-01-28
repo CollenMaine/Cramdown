@@ -1,0 +1,61 @@
+@model UserInfo
+@{
+    UserInfo info = Model;
+    ViewBag.Title = "A user's posts";
+    ViewBag.Description = "A user's posts";
+    ViewBag.Keywords = "Buy food from others,buy homemade food";
+}
+<script>
+    document.title = "A user's posts";
+</script>
+
+<div style="width:80%;">
+    @if (Model != null)
+    {
+        if (string.IsNullOrEmpty(Model.user.image) == true)
+        {
+            Model.user.image = "~/images/blankuser.png";
+        }
+        <div class="d-flex justify-content-center">
+            <div class="p-1" style="width:fit-content;">
+                <img class="img-fluid pr-2" style="width:8rem; border-radius:1rem; display:block; margin:0 auto;" src="@Model.user.image" alt="profile picture" />
+                <h4 style="font-family:Arial, Helvetica, sans-serif;"><strong>@Model.user.name</strong></h4>
+                <p class="text-center" style="font-weight:lighter;">@Model.user.city</p>
+            </div>
+        </div>
+        <hr />
+        <ul style="list-style:none;" class="row justify-content-center text-dark responsive-list">
+            @foreach (var meal in Model.meals)
+            {
+                <li class="listItem">
+                    <div class="innerSpace" style="width:90%;">
+                        @if (meal.pDelivery == "Yes, it's available")
+                        {
+                            <div class="d-inline-block" style="vertical-align:middle;">
+                                <img class="ml-auto" height="50" src="~/images/delivery_icon.png" alt="" />
+                            </div>
+                        }
+                        <div class="postImg">
+                            <img class="img-fluid" src="@meal.pImage" asp-append-version="true" />
+                        </div>
+                        <span class="m-3 truncate-text" style="font-size:22px;">@meal.pTitle</span>
+                        <div>
+                            <span class="m-3 font-weight-bold" style="font-size:18px;">R @meal.pPrice</span>
+                        </div>
+                        <div>
+                            <a class="btn interestBtn" asp-controller="App" asp-action="Index">Interested</a>
+                        </div>
+                        <br />
+                    </div>
+                </li>
+            }
+        </ul>
+    }
+    else
+    {
+        <div class="text-center">
+            <h1 class="text-primary" style="font-family: Helvetica, sans-serif;">Oops! We couldn't find what you are looking for.</h1>
+            <p><img style="border-radius: 10px; background: white;" src="~/images/sad_face.jpg" alt="sad face" height="150" /></p>
+        </div>
+    }
+</div>

@@ -1,0 +1,157 @@
+﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+for details on configuring this project to bundle and minify static web assets. */
+
+/* Landing page */
+#SellOn {
+    background-color: white;
+    width: 100%;
+    font-size: 20px;
+    height: fit-content;
+    margin: auto;
+    margin: 5rem;
+    padding: 4rem;
+    border-radius: 1em;
+    box-shadow: 0 0 5px 3px black;
+    max-width: 70%;
+}
+
+#links:hover {
+    text-decoration: none;
+    color: lightblue;
+}
+
+
+/* These are my own custom styles, the rest are defaults */
+html {
+    font-size: 14px;
+    color: black;
+    font-family: 'Roboto Mono';
+}
+
+.signup-form input[type="text"],
+.signup-form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.signup-form button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.signup-form img {
+    display: block;
+    margin: 0 auto;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+/* Hidden file input and associated label */
+.file-input {
+    display: none;
+}
+
+.nav-link {
+    font-size: 20px;
+    color: black;
+    /*font-family: ;*/
+}
+
+.listItem{
+    border-radius: 5px;
+    color: black;
+    box-shadow: 0 0 2px 1px black;
+    margin: 10px;
+    width: 300px;
+}
+
+.truncate-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.interestBtn{
+    background: black;
+    color: white;
+    width: 90%;
+    margin-left: 5%;
+    font-size: 20px;
+}
+
+.interestBtn:hover {
+    font-size: 110%;
+    color: white
+}
+
+.userInfo {
+    padding-top: 50px;
+}
+
+    .userInfo a {
+        color: black;
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+.userInfo a:hover {
+    text-decoration:none;
+}
+
+.userInfo img{
+    width: 45px;
+    height: 45px;
+}
+
+.innerSpace {
+    margin: 0;
+    padding: 0;
+}
+
+.warn-btn:hover {
+    border: 1px solid white;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.postImg img{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.postImg video {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+.postImg {
+    display: flex;
+    margin: 0;
+    height: 350px;
+}
+
+.warn-btn {
+    margin: 5px;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+}

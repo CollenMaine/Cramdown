@@ -1,0 +1,230 @@
+﻿@model ViewData<MealModel>
+@{
+    ViewBag.Title = "Cramdown Homepage";
+    ViewBag.Description = "Browse the Cramdown food catalog";
+    ViewBag.Keywords = "Browse Cramdown, Sell homemade food, buy homemade food";
+}
+
+<script>
+    document.title = "Cramdown Homepage";
+</script>
+
+<style>
+    .scrollBar {
+        width: 100%;
+        overflow: auto;
+        white-space: nowrap;
+        padding: 1px;
+        margin: 1rem;
+        display: flex;
+    }
+
+    .selectedImage {
+        margin-bottom: 0;
+        border-bottom: 5px solid black;
+    }
+
+    .scrollImage {
+        width: 7rem;
+        height:8rem;
+        box-shadow: 0 0 1px 0.4px black;
+        margin: 3px;
+    }
+</style>
+
+@if (Model != null)
+{
+    <div class="scrollBar justify-content-center">
+        <a id="allButton" class="scrollLink">
+            <img class="scrollImage" src="~/images/all.png" alt="" />
+        </a>
+        <a id="traditionalButton" class="scrollLink">
+            <img class="scrollImage" src="~/images/traditional.jpeg" alt="" />
+        </a>
+        <a id="breakfastButton" class="scrollLink">
+            <img class="scrollImage" src="~/images/breakfasts.jpeg" alt="" />
+        </a>
+        <a id="snacksButton" class="scrollLink">
+            <img class="scrollImage" src="~/images/snacks.jpeg" alt="" />
+        </a>
+        <a id="beveragesButton" class="scrollLink">
+            <img class="scrollImage" src="~/images/beverages.jpeg" alt="" />
+        </a>
+        <a id="healthyButton" class="scrollLink">
+            <img class="scrollImage" src="~/images/healthy.jpeg" alt="" />
+        </a>
+        <a id="mainCourseButton" class="scrollLink">
+            <img class="scrollImage" src="~/images/mainCourse.jpeg" alt="" />
+        </a>
+        <a id="sandwichesButton" class="scrollLink">
+            <img class="scrollImage" src="~/images/sandwhiches.jpeg" alt="" />
+        </a>
+        <a id="dessertsButton" class="scrollLink">
+            <img class="scrollImage" src="~/images/desserts.jpeg" alt="" />
+        </a>
+    </div>
+    <hr />
+
+    <div>
+        <!-- ... Other content ... -->
+
+        <ul id="all" style="list-style:none;" class="data-list row justify-content-center text-dark responsive-list">
+            @foreach (var meal in Model.data)
+            {
+                <li class="listItem">
+                    <div class="innerSpace">
+                        <div style="display:inline; height:fit-content;" class="userInfo">
+                            <div style="display:inline-block;">
+                                <a href="/User/UserInfo/@meal.uid">
+                                    @if (meal.uDp == "" || meal.uDp == null)
+                                    {
+                                        meal.uDp = "~/images/blankuser.png";
+                                    }
+                                    <img src="@meal.uDp" class="rounded-circle" style="vertical-align:top;" alt="" asp-append-version="true" />
+                                </a>
+                            </div>
+                            <div style="display:inline-block; vertical-align:middle;">
+                                <div>
+                                    <a href="/User/UserInfo/@meal.uid">
+                                        <span class="m-1" style="font-size:17px; white-space:nowrap;
+                                            overflow:hidden; text-overflow:ellipsis;">
+                                            @meal.uName
+                                        </span>
+                                    </a>
+                                </div>
+                                <div class="p-0 m-0" style="font-weight:lighter; font-size:14px;">
+                                    @meal.pCity
+                                </div>
+                            </div>
+                            @if (meal.pDelivery == "Yes, it's available")
+                            {
+                                <div class="d-inline-block" style="vertical-align:middle;">
+                                    <img src="~/images/delivery_icon.png" alt="" />
+                                </div>
+                            }
+                        </div>
+                        <a class="m-0 p-0" href="/Posts/Post/@meal.pId">
+                            <div class="postImg">
+                                <img class="img-fluid" src="@meal.pImage" asp-append-version="true" />
+                            </div>
+                        </a>
+                        @*<div class="postImg">
+                            <img class="img-fluid" src="@meal.pImage" asp-append-version="true" />
+                        </div>*@
+                        <span class="m-3 truncate-text" style="font-size:18px;">@meal.pTitle</span>
+                        <div>
+                            <span class="m-3 font-weight-bold" style="font-size:18px;">R @meal.pPrice</span>
+                        </div>
+                        <div>
+                            <a class="btn interestBtn" asp-controller="App" asp-action="Index">Interested</a>
+                        </div>
+                        <br />
+                    </div>
+                </li>
+            }
+        </ul>
+
+        @{
+            await Categories("desserts", "Dessert");
+        }
+        @{
+            await Categories("sandwiches", "Sandwhich/wrap");
+        }
+        @{
+            await Categories("healthy", "Healthy");
+        }
+        @{
+            await Categories("traditional", "Traditional");
+        }
+        @{
+            await Categories("snacks", "Snacks");
+        }
+        @{
+            await Categories("beverages", "Beverages");
+        }
+        @{
+            await Categories("breakfast", "Breakfasts");
+        }
+        @{
+            await Categories("mainCourse", "Main Courses");
+        }
+
+    </div>
+    async Task Categories(string id, string filter)
+    {
+        <ul id="@id" style="list-style:none;" class="data-list row justify-content-center text-dark responsive-list">
+            @foreach (var meal in Model.data.Where(m => m.pCategories == filter))
+            {
+                <li class="listItem">
+                    <div class="innerSpace">
+                        <div style="display:inline; height:fit-content;" class="userInfo">
+                            <div style="display:inline-block;">
+                                <a href="/User/UserInfo/@meal.uid">
+                                    @if (meal.uDp == "" || meal.uDp == null)
+                                    {
+                                        meal.uDp = "~/images/blankuser.png";
+                                    }
+                                    <img src="@meal.uDp" class="rounded-circle" style="vertical-align:top;" alt="" asp-append-version="true" />
+                                </a>
+                            </div>
+                            <div style="display:inline-block; vertical-align:middle;">
+                                <div>
+                                    <a href="/User/UserInfo/@meal.uid">
+                                        <span class="m-1" style="font-size:17px; white-space:nowrap;
+                                            overflow:hidden; text-overflow:ellipsis;">@meal.uName</span>
+                                    </a>
+                                </div>
+                                <div class="p-0 m-0" style="font-weight:lighter; font-size:14px;">
+                                    @meal.pCity
+                                </div>
+                            </div>
+                            @if (meal.pDelivery == "Yes, it's available")
+                            {
+                                <div class="d-inline-block" style="vertical-align:middle;">
+                                    <img src="~/images/delivery_icon.png" alt="" />
+                                </div>
+                            }
+                        </div>
+                        <div class="postImg">
+                            <a class="/Posts/Post/@meal.pId">
+                                <img class="img-fluid" src="@meal.pImage" asp-append-version="true" />
+                            </a>
+                        </div>
+                        <span class="m-3 truncate-text" style="font-size:22px;">@meal.pTitle</span>
+                        <div>
+                            <span class="m-3 font-weight-bold" style="font-size:18px;">R @meal.pPrice</span>
+                        </div>
+                        <div>
+                            <a class="btn interestBtn" asp-controller="App" asp-action="Index">Interested</a>
+                        </div>
+                        <br />
+                    </div>
+                </li>
+            }
+        </ul>
+    }
+
+    <script>
+        document.querySelector(".scrollLink:first-child").classList.add('selectedImage');
+        document.querySelectorAll(".scrollLink").forEach(function (option) {
+        option.addEventListener("click", function () {
+        document.querySelectorAll('.scrollLink').forEach(function (opt) {
+        opt.classList.remove('selectedImage');
+        });
+        option.classList.add('selectedImage');
+
+        // Get the category from the button's ID
+        var category = option.id.replace("Button", "");
+
+        // Hide all data lists
+        document.querySelectorAll('.data-list').forEach(function (list) {
+        list.style.display = "none";
+        });
+
+        // Show the selected category's data list
+        var selectedList = document.getElementById(category);
+        selectedList.style.display = "grid";
+        });
+        });
+    </script>
+}

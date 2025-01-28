@@ -1,0 +1,47 @@
+﻿@model UserModel
+@{
+    ViewBag.Title = "Sign up";
+    ViewBag.Description = "Sign up for a Cramdown account";
+    ViewBag.Keywords = "Create a Cramdown account,Sign in to Cramdown, Sign up to sell food,Sign up to buy food online";
+}
+<script>
+    document.title = "Sign up";
+</script>
+
+@if(Model == null)
+{
+    <body style="font-family: Helvetica, sans-serif; background-color:#f2f2f2; margin:0; padding:0;">
+        <div class="container" style="max-width:400px; margin:50px auto; padding:20px; background-color:#fff; border-radius:5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+            <h2 style="text-align:center;">Sign Up</h2>
+            <form style="margin-right:20px;" class="signup-form" asp-action="SignUp" asp-controller="User">
+                <input type="text" id="email-input" placeholder="Username" required asp-for="email" />
+                <input type="password" id="password-input" placeholder="Password" required asp-for="password" />
+                <div class="d-inline p-2 m-2">
+                    <input class="custom-radio d-inline" id="radio" asp-action="" required type="radio" />
+                    <label class="d-inline">By clicking sign up, you agree with <a asp-action="Terms" asp-controller="Home"><strong>CramDown's Terms of Use</strong></a></label>
+                </div>
+                <button type="submit" id="submit" disabled>Sign Up</button>
+            </form>
+        </div>
+    </body>
+}
+else
+{
+    <body style="font-family: Helvetica, sans-serif; background-color:#f2f2f2; margin:0; padding:0;">
+        <div class="container" style="max-width:400px; margin:50px auto; padding:20px; background-color:#fff; border-radius:5px; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+            <h2 style="text-align:center;">Sign Up</h2>
+            <form style="margin-right:20px;" class="signup-form" asp-action="SignUp" asp-controller="User">
+                <input type="text" id="email-input" placeholder="Username" required asp-for="email" />
+                <input type="password" id="password-input" placeholder="Password" required asp-for="password" />
+                <div class="d-inline p-2 m-2">
+                    <input class="custom-radio d-inline" id="radio" asp-action="" required type="radio" />
+                    <label class="d-inline">By clicking sign up, you agree with <a asp-action="Terms" asp-controller="Home"><strong>CramDown's Terms of Use</strong></a></label>
+                </div>
+                <button type="submit" id="submit" disabled>Sign Up</button>
+            </form>
+            <div class="text-danger">
+                That email is already in use by another account, please use a different email or login.
+            </div>
+        </div>
+    </body>
+}
